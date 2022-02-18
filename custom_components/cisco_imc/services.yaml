@@ -1,0 +1,26 @@
+set_admin_power:
+  name: Set Admin Power
+  description: Sets the IMC admin power state
+  fields:
+    desired_state:
+      name: Desired State
+      example: 'up'
+      required: true
+      description: The desired power state of the IMC
+      selector:
+        select:
+          options:
+            - up
+            - down
+            - soft-shut-down
+            - cycle-immediate
+            - hard-reset-immediate
+            - bmc-reset-immediate
+            - bmc-reset-default
+            - cmos-reset-immediate
+            - diagnostic-interrupt
+    entity_id:
+      name: Entity ID
+      required: true
+      description: The desired power state of the IMC
+      example: sensor.cisco_imc_192_168_1_255_power

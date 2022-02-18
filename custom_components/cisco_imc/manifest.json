@@ -1,0 +1,20 @@
+{
+  "domain": "cisco_imc",
+  "name": "Cisco IMC",
+  "documentation": "https://github.com/ecoen66/cisco_imc",
+  "issue_tracker": "https://github.com/ecoen66/cisco_imc/issues",
+  "dependencies": [
+    "http"
+  ],
+  "config_flow": true,
+  "codeowners": [
+    "@ecoen66"
+  ],
+  "requirements": [
+    "imcsdk==0.9.12",
+    "iso8601==0.1.12",
+    "integrationhelper==0.2.2"
+  ],
+  "version": "v1.0.0",
+  "iot_class": "local_polling"
+}

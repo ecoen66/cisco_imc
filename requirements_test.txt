@@ -1,1 +1,7 @@
 pytest-homeassistant-custom-component==0.4.0
+imcsdk==0.9.12
+homeassistant
+pytest
+pytest-asyncio
+pytest-cov
+flake8
