@@ -220,6 +220,7 @@ class CiscoImcDataService(DataUpdateCoordinator):
         self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
         self.username = self.config_entry.data.get(CONF_USERNAME)[0]
         self.password = self.config_entry.data.get(CONF_PASSWORD)
+        self.hass.setdefault("custom_attributes", {})
         self.hass.custom_attributes[self.imc] = {}
         self.hass.custom_attributes[self.imc]['polling_switch'] = True
         self.hass.custom_attributes[self.imc]['reachable'] = False
