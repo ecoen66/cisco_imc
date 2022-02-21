@@ -1,6 +1,7 @@
 """Binary sensor platform for CiscoImc."""
 import logging
 from homeassistant.components.binary_sensor import DEVICE_CLASSES, BinarySensorEntity
+from homeassistant.const import CONF_IP_ADDRESS
 
 from .const import DOMAIN, NAME
 from .imc_device import CiscoImcDevice

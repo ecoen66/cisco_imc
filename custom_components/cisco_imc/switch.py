@@ -5,6 +5,8 @@ import logging
 from typing import Any
 
 from homeassistant.components.switch import SwitchEntity
+from homeassistant.const import CONF_IP_ADDRESS
+
 from .const import DOMAIN, NAME
 from .imc_device import CiscoImcDevice
 from .models import CiscoImcSwitchEntityDescription
@@ -32,7 +34,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
 
     entity_description: CiscoImcSwitchEntityDescription
 
-    def __init__(self, hass, imc, entity_description, coordinator):
+    def __init__(self, hass, config_entry, entity_description, coordinator):
         """Initialise the switch."""
         self.hass = hass
         self.platform_name = "switch"

@@ -13,6 +13,8 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.const import CONF_IP_ADDRESS
+
 
 from .const import DOMAIN, NAME, SENSOR_TYPES, RACK_UNIT_SENSORS
 from .imc_device import CiscoImcDevice
