@@ -11,8 +11,8 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     """Set up the Tesla binary_sensors by config_entry."""
-    coordinator = hass.data[DOMAIN][config_entry.entry_id]["coordinator"]
     entry_data = hass.data[DOMAIN][config_entry.entry_id]
+    coordinator = entry_data["coordinator"]
     entities = []
     for device_key in entry_data["devices"]["binary_sensor"].keys():
         device_class = entry_data["devices"]["binary_sensor"][device_key]
