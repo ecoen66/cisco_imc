@@ -222,7 +222,9 @@ class CiscoImcDataService(DataUpdateCoordinator):
         self.password = self.config_entry.data.get(CONF_PASSWORD)
 #        self.hass.setdefault("custom_attributes, {})
 #        self.hass.custom_attributes.setdefault(self.imc, {})
+        _LOGGER.debug("about to set custom_attributes for %s", imc)
         self.hass.custom_attributes[self.imc] = {}
+        _LOGGER.debug("about to set polling_switch for %s", imc)
         self.hass.custom_attributes[self.imc]['polling_switch'] = True
         self.hass.custom_attributes[self.imc]['reachable'] = False
         self.hass.custom_attributes[self.imc]['unreachable_counter'] = 0
