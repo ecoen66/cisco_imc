@@ -293,7 +293,7 @@ class CiscoImcDataService(DataUpdateCoordinator):
             self.hass.custom_attributes[self.imc]['reachable'] = False
             self.hass.custom_attributes[self.imc]['unreachable_counter'] += 1
             raise UpdateFailed("Unable to contact the IMC, skipping update") from ex
-        self.hass.custom_attributes[self.imc]clear()
+        self.hass.custom_attributes[self.imc].clear()
         self.hass.custom_attributes[self.imc]['reachable'] = True
         self.hass.custom_attributes[self.imc]['polling_switch'] = True
         self.hass.custom_attributes[self.imc]['unreachable_counter'] = 0
