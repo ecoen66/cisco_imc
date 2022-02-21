@@ -36,13 +36,14 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         self.hass = hass
         self.platform_name = "switch"
         self.entity_description = entity_description
+        self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
         self.coordinator = coordinator
-        self._attr_name = f"{NAME} {self.coordinator.imc} {self.entity_description.name}"
-        if self.hass.custom_attributes['usr_lbl']:
-            self._attr_name = f"{self.hass.custom_attributes['usr_lbl']} {self.entity_description.name}"        
+        self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
+        if self.hass.custom_attributes[self.imc]['usr_lbl']:
+            self._attr_name = f"{self.hass.custom_attributes[self.imc]['usr_lbl']} {self.entity_description.name}"        
         self._attributes = {}
         
-        super().__init__(self, hass, entity_description, coordinator)
+        super().__init__(self, hass, self.imc, entity_description, coordinator)
         
 
     @property
@@ -50,7 +51,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         """Return a unique ID."""
         if not self.coordinator.imc:
             return None
-        return f"{DOMAIN}_{self.coordinator.imc.lower().replace('.', '_')}_{self.entity_description.key}"
+        return f"{DOMAIN}_{self.imc.lower().replace('.', '_')}_{self.entity_description.key}"
 
     @CiscoImcDevice.Decorators.check_for_reauth
     async def async_turn_on(self, **kwargs):

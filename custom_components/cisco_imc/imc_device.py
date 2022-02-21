@@ -49,11 +49,12 @@ class CiscoImcDevice(CoordinatorEntity):
 
             return wrapped
 
-    def __init__(self, upstream_entity, hass, entity_description, coordinator):
+    def __init__(self, upstream_entity, hass, imc, entity_description, coordinator):
         """Initialise the Cisco IMC device."""
         super().__init__(coordinator)
         self.upstream_entity = upstream_entity
         self.hass = hass
+        self.imc = imc
         self.entity_description = entity_description
         self.coordinator = coordinator
         self.config_entry_id: Optional[str] = None
@@ -72,11 +73,11 @@ class CiscoImcDevice(CoordinatorEntity):
     def device_info(self):
         """Return the device_info of the device."""
         my_name = f"{NAME} {self.coordinator.imc}"
-        if self.hass.custom_attributes['usr_lbl']:
-            my_name = self.hass.custom_attributes['usr_lbl']
+        if self.hass.custom_attributes[self.imc]['usr_lbl']:
+            my_name = self.hass.custom_attributes[self.imc]['usr_lbl']
         return {
-            "identifiers": {(DOMAIN, self.coordinator.imc)},
+            "identifiers": {(DOMAIN, self.imc)},
             "name": my_name,
             "manufacturer": "Cisco",
-            "model": self.hass.custom_attributes['model'],
+            "model": self.hass.custom_attributes[self.imc]['model'],
         }

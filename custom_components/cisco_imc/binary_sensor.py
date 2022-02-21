@@ -16,32 +16,33 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     entities = []
     for device_key in entry_data["devices"]["binary_sensor"].keys():
         device_class = entry_data["devices"]["binary_sensor"][device_key]
-        entities.append(CiscoImcBinarySensor(hass, device_class, coordinator))
+        entities.append(CiscoImcBinarySensor(hass, config_entry, device_class, coordinator))
     async_add_entities(entities, True)
 
 
 class CiscoImcBinarySensor(CiscoImcDevice, BinarySensorEntity):
     """Implement an Cisco IMC binary sensor for ...."""
 
-    def __init__(self, hass, entity_description, coordinator):
+    def __init__(self, hass, config_entry, entity_description, coordinator):
         """Initialise the binary_sensor."""
         self.hass = hass
         self.platform_name = "binary_sensor"
         self.entity_description = entity_description
+        self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
         self.coordinator = coordinator
-        self._attr_name = f"{NAME} {self.coordinator.imc} {self.entity_description.name}"
-        if self.hass.custom_attributes['usr_lbl']:
-            self._attr_name = f"{self.hass.custom_attributes['usr_lbl']} {self.entity_description.name}"        
+        self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
+        if self.hass.custom_attributes[self.imc]['usr_lbl']:
+            self._attr_name = f"{self.hass.custom_attributes[self.imc]['usr_lbl']} {self.entity_description.name}"        
         self._attributes = {}
         
-        super().__init__(self, hass, entity_description, coordinator)
+        super().__init__(self, hass, self.imc, entity_description, coordinator)
 
     @property
     def unique_id(self):
         """Return a unique ID."""
         if not self.coordinator.imc:
             return None
-        return f"{DOMAIN}_{self.coordinator.imc.lower().replace('.', '_')}_{self.entity_description.key}"
+        return f"{DOMAIN}_{self.imc.lower().replace('.', '_')}_{self.entity_description.key}"
         
     @property
     def device_class(self):

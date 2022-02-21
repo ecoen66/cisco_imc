@@ -220,10 +220,10 @@ class CiscoImcDataService(DataUpdateCoordinator):
         self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
         self.username = self.config_entry.data.get(CONF_USERNAME)[0]
         self.password = self.config_entry.data.get(CONF_PASSWORD)
-        self.hass.custom_attributes = {}
-        self.hass.custom_attributes['polling_switch'] = True
-        self.hass.custom_attributes['reachable'] = False
-        self.hass.custom_attributes['unreachable_counter'] = 0
+        self.hass.custom_attributes[self.imc] = {}
+        self.hass.custom_attributes[self.imc]['polling_switch'] = True
+        self.hass.custom_attributes[self.imc]['reachable'] = False
+        self.hass.custom_attributes[self.imc]['unreachable_counter'] = 0
         self.update_interval = timedelta(seconds=MIN_SCAN_INTERVAL)
         self.client = ImcHandle(
             self.imc,
@@ -237,13 +237,13 @@ class CiscoImcDataService(DataUpdateCoordinator):
                      
     async def async_login(self):
         response = False
-        self.hass.custom_attributes['reachable'] = False
+        self.hass.custom_attributes[self.imc]['reachable'] = False
         try:
             _LOGGER.debug(f"{self.imc} Logging in from CiscoImcDataService")
             response = await self.hass.async_add_executor_job(self.client.login)
         except URLError as ex:
-            self.hass.custom_attributes['reachable'] = False
-            self.hass.custom_attributes['unreachable_counter'] += 1
+            self.hass.custom_attributes[self.imc]['reachable'] = False
+            self.hass.custom_attributes[self.imc]['unreachable_counter'] += 1
             raise UpdateFailed("Unable to contact the IMC, skipping update") from ex
         except ImcLoginError as ex:
             _LOGGER.error("Could not login to the IMC %s", self.imc)
@@ -252,17 +252,17 @@ class CiscoImcDataService(DataUpdateCoordinator):
             _LOGGER.error("Exception logging in to the IMC %s", self.imc)
             raise ConfigEntryNotReady from ex
         except URLError as ex:
-            self.hass.custom_attributes['reachable'] = False
-            self.hass.custom_attributes['unreachable_counter'] += 1
+            self.hass.custom_attributes[self.imc]['reachable'] = False
+            self.hass.custom_attributes[self.imc]['unreachable_counter'] += 1
             raise UpdateFailed("Unable to contact the IMC, skipping update") from ex
         _LOGGER.debug(f"{self.imc} Login from CiscoImcDataService = {response}")
-        self.hass.custom_attributes['reachable'] = True
-        _LOGGER.debug(f"{self.imc} Reachable set to {self.hass.custom_attributes['reachable']}")
+        self.hass.custom_attributes[self.imc]['reachable'] = True
+        _LOGGER.debug(f"{self.imc} Reachable set to {self.hass.custom_attributes[self.imc]['reachable']}")
         return response
         
     async def async_close(self):
         response = await self.hass.async_add_executor_job(self.client.logout)
-        self.hass.custom_attributes['reachable'] = False
+        self.hass.custom_attributes[self.imc]['reachable'] = False
         _LOGGER.debug(f"{self.imc} Logout from CiscoImcDataService = {response}")
         return response
         
@@ -270,13 +270,13 @@ class CiscoImcDataService(DataUpdateCoordinator):
         """Update data."""
 #        if self.hass.custom_attributes['unreachable_counter'] > 10:
 #           self.hass.custom_attributes['polling_switch'] = False 
-        _LOGGER.debug(f"{self.imc} polling_switch = {self.hass.custom_attributes['polling_switch']}")
-        if self.hass.custom_attributes['polling_switch']:
-            _LOGGER.debug(f"{self.imc} reachable = {self.hass.custom_attributes['reachable']}")
-            if not self.hass.custom_attributes['reachable']:
+        _LOGGER.debug(f"{self.imc} polling_switch = {self.hass.custom_attributes[self.imc]['polling_switch']}")
+        if self.hass.custom_attributes[self.imc]['polling_switch']:
+            _LOGGER.debug(f"{self.imc} reachable = {self.hass.custom_attributes[self.imc]['reachable']}")
+            if not self.hass.custom_attributes[self.imc]['reachable']:
                 result = await self.async_login()
                 if not result:
-                    self.hass.custom_attributes['unreachable_counter'] += 1
+                    self.hass.custom_attributes[self.imc]['unreachable_counter'] += 1
                     return False
             await self.hass.async_add_executor_job(self.update)
             
@@ -286,17 +286,17 @@ class CiscoImcDataService(DataUpdateCoordinator):
         try:
             rack_unit = self.client.query_dn("sys/rack-unit-1")
         except URLError as ex:
-            self.hass.custom_attributes['reachable'] = False
-            self.hass.custom_attributes['unreachable_counter'] += 1
+            self.hass.custom_attributes[self.imc]['reachable'] = False
+            self.hass.custom_attributes[self.imc]['unreachable_counter'] += 1
             raise UpdateFailed("Unable to contact the IMC, skipping update") from ex
         except Exception as ex:
-            self.hass.custom_attributes['reachable'] = False
-            self.hass.custom_attributes['unreachable_counter'] += 1
+            self.hass.custom_attributes[self.imc]['reachable'] = False
+            self.hass.custom_attributes[self.imc]['unreachable_counter'] += 1
             raise UpdateFailed("Unable to contact the IMC, skipping update") from ex
-        self.hass.custom_attributes.clear()
-        self.hass.custom_attributes['reachable'] = True
-        self.hass.custom_attributes['polling_switch'] = True
-        self.hass.custom_attributes['unreachable_counter'] = 0
+        self.hass.custom_attributes[self.imc]clear()
+        self.hass.custom_attributes[self.imc]['reachable'] = True
+        self.hass.custom_attributes[self.imc]['polling_switch'] = True
+        self.hass.custom_attributes[self.imc]['unreachable_counter'] = 0
 
         for key, value in rack_unit.__dict__.items():
             if key in RACK_UNIT_SENSORS:
@@ -305,12 +305,12 @@ class CiscoImcDataService(DataUpdateCoordinator):
 
     def set_polling_state(self, new_state):
         """Update the polling status the Cisco IMC API."""
-        self.hass.custom_attributes['polling_switch'] = new_state
+        self.hass.custom_attributes[self.imc]['polling_switch'] = new_state
         _LOGGER.debug(f"Updated Cisco IMC Polling {self.imc}: %s", self.hass.custom_attributes['polling_switch'])
 
     def is_polling(self):
         """Return the polling status the Cisco IMC API."""
-        is_polling = self.hass.custom_attributes['polling_switch'] == True
+        is_polling = self.hass.custom_attributes[self.imc]['polling_switch'] == True
         _LOGGER.debug(f"Cisco IMC Polling {self.imc}: %s", is_polling)
         return is_polling
 

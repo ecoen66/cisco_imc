@@ -57,19 +57,20 @@ class CiscoImcSensorEntity(CiscoImcDevice, SensorEntity):
         self.hass = hass
         self.platform_name = platform_name
         self.entity_description = description
+        self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
         self.coordinator = coordinator
-        self._attr_name = f"{NAME} {self.coordinator.imc} {self.entity_description.name}"
-        if self.hass.custom_attributes['usr_lbl']:
-            self._attr_name = f"{self.hass.custom_attributes['usr_lbl']} {self.entity_description.name}"        
+        self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
+        if self.hass.custom_attributes[self.imc]['usr_lbl']:
+            self._attr_name = f"{self.hass.custom_attributes[self.imc]['usr_lbl']} {self.entity_description.name}"        
         self._attributes = {}
-        super().__init__(self, hass, description, coordinator)
+        super().__init__(self, hass, self.imc, description, coordinator)
         
     @property
     def unique_id(self) -> str | None:
         """Return a unique ID."""
         if not self.coordinator.imc:
             return None
-        return f"{DOMAIN}_{self.coordinator.imc.lower().replace('.', '_')}_{self.entity_description.key}"
+        return f"{DOMAIN}_{self.imc.lower().replace('.', '_')}_{self.entity_description.key}"
         
 class CiscoImcRackUnitSensor(CiscoImcSensorEntity):
     """Representation of a Cisco IMC Rack Unit sensor."""
@@ -79,9 +80,9 @@ class CiscoImcRackUnitSensor(CiscoImcSensorEntity):
         """Return the state of the sensor."""
 #        if self.coordinator.sensor_state(self.entity_description.key) is None:
 #            return None
-        return self.hass.custom_attributes[self.entity_description.key]
+        return self.hass.custom_attributes[self.imc][self.entity_description.key]
         
      @property
      def device_state_attributes(self):
          """Return the state attributes of the sensor."""
-         return self.hass.custom_attributes[self.entity_description.key]
+         return self.hass.custom_attributes[self.imc][self.entity_description.key]
