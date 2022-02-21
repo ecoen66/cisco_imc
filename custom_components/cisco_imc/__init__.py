@@ -215,6 +215,7 @@ class CiscoImcDataService(DataUpdateCoordinator):
 
     def __init__(self, hass, config_entry):
         """Initialize the class."""
+        _LOGGER.debug("Entered init for CiscoImcDataService for %s", self.imc)
         self.hass = hass
         self.config_entry = config_entry
         self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
@@ -222,9 +223,9 @@ class CiscoImcDataService(DataUpdateCoordinator):
         self.password = self.config_entry.data.get(CONF_PASSWORD)
 #        self.hass.setdefault("custom_attributes, {})
 #        self.hass.custom_attributes.setdefault(self.imc, {})
-        _LOGGER.debug("about to set custom_attributes for %s", imc)
+        _LOGGER.debug("about to set custom_attributes for %s", self.imc)
         self.hass.custom_attributes[self.imc] = {}
-        _LOGGER.debug("about to set polling_switch for %s", imc)
+        _LOGGER.debug("about to set polling_switch for %s", self.imc)
         self.hass.custom_attributes[self.imc]['polling_switch'] = True
         self.hass.custom_attributes[self.imc]['reachable'] = False
         self.hass.custom_attributes[self.imc]['unreachable_counter'] = 0
