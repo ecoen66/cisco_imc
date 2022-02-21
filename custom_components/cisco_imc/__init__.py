@@ -215,7 +215,6 @@ class CiscoImcDataService(DataUpdateCoordinator):
 
     def __init__(self, hass, config_entry):
         """Initialize the class."""
-        _LOGGER.debug("Entered init for CiscoImcDataService for %s", self.imc)
         self.hass = hass
         self.config_entry = config_entry
         self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
