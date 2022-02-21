@@ -29,7 +29,7 @@ class CiscoImcBinarySensor(CiscoImcDevice, BinarySensorEntity):
         self.hass = hass
         self.platform_name = "binary_sensor"
         self.entity_description = entity_description
-        self.imc = config_entry.title
+        self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
         self.coordinator = coordinator
         self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
         if self.hass.custom_attributes[self.imc]['usr_lbl']:

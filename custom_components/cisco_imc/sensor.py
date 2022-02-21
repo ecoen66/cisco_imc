@@ -13,6 +13,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.const import CONF_IP_ADDRESS
 
 
 from .const import DOMAIN, NAME, SENSOR_TYPES, RACK_UNIT_SENSORS
@@ -38,7 +39,7 @@ async def async_setup_entry(
     entities = []
     for device_key in entry_data["devices"]["sensor"].keys():
         device_class = entry_data["devices"]["sensor"][device_key]
-        entities.append(CiscoImcRackUnitSensor(hass, platform_name, device_class, coordinator))
+        entities.append(CiscoImcRackUnitSensor(hass, entry, platform_name, device_class, coordinator))
     async_add_entities(entities, True)
 
 
@@ -50,6 +51,7 @@ class CiscoImcSensorEntity(CiscoImcDevice, SensorEntity):
     def __init__(
         self,
         hass: HomeAssistant,
+        config_entry: ConfigEntry,
         platform_name:str,
         description: CiscoImcSensorEntityDescription,
         coordinator,
@@ -58,7 +60,7 @@ class CiscoImcSensorEntity(CiscoImcDevice, SensorEntity):
         self.hass = hass
         self.platform_name = platform_name
         self.entity_description = description
-        self.imc = config_entry.title
+        self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
         self.coordinator = coordinator
         self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
         if self.hass.custom_attributes[self.imc]['usr_lbl']:

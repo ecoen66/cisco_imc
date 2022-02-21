@@ -5,6 +5,7 @@ import logging
 from typing import Any
 
 from homeassistant.components.switch import SwitchEntity
+from homeassistant.const import CONF_IP_ADDRESS
 
 from .const import DOMAIN, NAME
 from .imc_device import CiscoImcDevice
@@ -18,7 +19,6 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     """Set up the IMC switches by config_entry."""
     print(f"entry_id = {config_entry.entry_id}")
     entry_data = hass.data[DOMAIN][config_entry.entry_id]
-    imc = entry_data.get(CONF_IP_ADDRESS)[0]
     coordinator = entry_data["coordinator"]
     entities = []
     for device_key in entry_data["devices"]["switch"].keys():
@@ -38,7 +38,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         self.hass = hass
         self.platform_name = "switch"
         self.entity_description = entity_description
-        self.imc = config_entry.title
+        self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
         self.coordinator = coordinator
         self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
         if self.hass.custom_attributes[self.imc]['usr_lbl']:
