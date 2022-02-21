@@ -268,8 +268,6 @@ class CiscoImcDataService(DataUpdateCoordinator):
         
     async def _async_update_data(self):
         """Update data."""
-#        if self.hass.custom_attributes['unreachable_counter'] > 10:
-#           self.hass.custom_attributes['polling_switch'] = False 
         _LOGGER.debug(f"{self.imc} polling_switch = {self.hass.custom_attributes[self.imc]['polling_switch']}")
         if self.hass.custom_attributes[self.imc]['polling_switch']:
             _LOGGER.debug(f"{self.imc} reachable = {self.hass.custom_attributes[self.imc]['reachable']}")
@@ -300,13 +298,13 @@ class CiscoImcDataService(DataUpdateCoordinator):
 
         for key, value in rack_unit.__dict__.items():
             if key in RACK_UNIT_SENSORS:
-                self.hass.custom_attributes[key] = value
-        _LOGGER.debug(f"Updated Cisco IMC Rack Unit {self.imc}: {self.hass.custom_attributes}")
+                self.hass.custom_attributes[self.imc][key] = value
+        _LOGGER.debug(f"Updated Cisco IMC Rack Unit {self.imc}: {self.hass.custom_attributes[self.imc]}")
 
     def set_polling_state(self, new_state):
         """Update the polling status the Cisco IMC API."""
         self.hass.custom_attributes[self.imc]['polling_switch'] = new_state
-        _LOGGER.debug(f"Updated Cisco IMC Polling {self.imc}: %s", self.hass.custom_attributes['polling_switch'])
+        _LOGGER.debug(f"Updated Cisco IMC Polling {self.imc}: %s", self.hass.custom_attributes[self.imc]['polling_switch'])
 
     def is_polling(self):
         """Return the polling status the Cisco IMC API."""
@@ -316,4 +314,4 @@ class CiscoImcDataService(DataUpdateCoordinator):
 
     def sensor_state(self, key):
         """Return the state of a Cisco IMC sensor."""
-        return self.hass.custom_attributes[key]
+        return self.hass.custom_attributes[self.imc][key]
