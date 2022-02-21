@@ -55,14 +55,12 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
             return None
         return f"{DOMAIN}_{self.imc.lower().replace('.', '_')}_{self.entity_description.key}"
 
-    @CiscoImcDevice.Decorators.check_for_reauth
     async def async_turn_on(self, **kwargs):
         """Send the on command."""
         _LOGGER.debug("Enable polling for: %s", self.name)
         await self.coordinator.set_polling_state(True)
         self.async_write_ha_state()
 
-    @CiscoImcDevice.Decorators.check_for_reauth
     async def async_turn_off(self, **kwargs):
         """Send the off command."""
         _LOGGER.debug("Disable polling for: %s", self.name)
