@@ -5,7 +5,6 @@ import logging
 from typing import Any
 
 from homeassistant.components.switch import SwitchEntity
-from homeassistant.const import CONF_IP_ADDRESS
 
 from .const import DOMAIN, NAME
 from .imc_device import CiscoImcDevice
@@ -39,7 +38,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         self.hass = hass
         self.platform_name = "switch"
         self.entity_description = entity_description
-        self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
+        self.imc = config_entry.title
         self.coordinator = coordinator
         self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
         if self.hass.custom_attributes[self.imc]['usr_lbl']:

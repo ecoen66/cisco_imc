@@ -13,7 +13,6 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from homeassistant.const import CONF_IP_ADDRESS
 
 
 from .const import DOMAIN, NAME, SENSOR_TYPES, RACK_UNIT_SENSORS
@@ -59,7 +58,7 @@ class CiscoImcSensorEntity(CiscoImcDevice, SensorEntity):
         self.hass = hass
         self.platform_name = platform_name
         self.entity_description = description
-        self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
+        self.imc = config_entry.title
         self.coordinator = coordinator
         self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
         if self.hass.custom_attributes[self.imc]['usr_lbl']:
