@@ -72,7 +72,7 @@ class CiscoImcDevice(CoordinatorEntity):
     @property
     def device_info(self):
         """Return the device_info of the device."""
-        my_name = f"{NAME} {self.coordinator.imc}"
+        my_name = f"{NAME} {self.imc}"
         if self.hass.custom_attributes[self.imc]['usr_lbl']:
             my_name = self.hass.custom_attributes[self.imc]['usr_lbl']
         return {
