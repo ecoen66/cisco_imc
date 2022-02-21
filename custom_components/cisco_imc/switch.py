@@ -17,11 +17,12 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     """Set up the IMC switches by config_entry."""
     print(f"entry_id = {config_entry.entry_id}")
     entry_data = hass.data[DOMAIN][config_entry.entry_id]
+    imc = entry_data.get(CONF_IP_ADDRESS)[0]
     coordinator = entry_data["coordinator"]
     entities = []
     for device_key in entry_data["devices"]["switch"].keys():
         device_class = entry_data["devices"]["switch"][device_key]
-        entities.append(ImcPollingSwitch(hass, device_class, coordinator))
+        entities.append(ImcPollingSwitch(hass, config_entry, device_class, coordinator))
     async_add_entities(entities, True)
 
 
@@ -31,7 +32,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
 
     entity_description: CiscoImcSwitchEntityDescription
 
-    def __init__(self, hass, entity_description, coordinator):
+    def __init__(self, hass, imc, entity_description, coordinator):
         """Initialise the switch."""
         self.hass = hass
         self.platform_name = "switch"
