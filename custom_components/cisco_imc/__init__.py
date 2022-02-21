@@ -221,7 +221,7 @@ class CiscoImcDataService(DataUpdateCoordinator):
         self.username = self.config_entry.data.get(CONF_USERNAME)[0]
         self.password = self.config_entry.data.get(CONF_PASSWORD)
         _LOGGER.debug("about to setdefault custom_attributes for %s", self.imc)
-        self.hass.setdefault("custom_attributes, {})
+        self.hass.setdefault("custom_attributes", {})
         _LOGGER.debug("about to setdefault custom_attributes.imc for %s", self.imc)
         self.hass.custom_attributes.setdefault(self.imc, {})
         _LOGGER.debug("about to set custom_attributes for %s", self.imc)
