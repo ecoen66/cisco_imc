@@ -58,13 +58,13 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
     async def async_turn_on(self, **kwargs):
         """Send the on command."""
         _LOGGER.debug("Enable polling for: %s", self.name)
-        await self.coordinator.set_polling_state(True)
+        self.coordinator.set_polling_state(True)
         self.async_write_ha_state()
 
     async def async_turn_off(self, **kwargs):
         """Send the off command."""
         _LOGGER.debug("Disable polling for: %s", self.name)
-        await self.coordinator.set_polling_state(False)
+        self.coordinator.set_polling_state(False)
         self.async_write_ha_state()
 
     @property
