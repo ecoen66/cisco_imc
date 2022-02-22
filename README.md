@@ -1,6 +1,18 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 
 ---
+# A [Cisco](https://www.cisco.com) UCS Server IMC integration for [Home Assistant](https://github.com/home-assistant).  
+
+---
+
+# Purpose
+
+The purpose of this code is to create a [Home Assistant](https://github.com/home-assistant) integration to provide high-level, rack-unit data from the CIMC, and to allow an administrator to set the UCS server's desired admin power state.  This integration utilizes the [Cisco](https://www.cisco.com) [imcsdk](https://github.com/CiscoUcs/imcsdk) for Python.
+
+![Integration Screenshot](example-1.png "Integration")
+![Integration Instance Screenshot](example-2.png "Integration Instance")
+![Device Instance Screenshot](example-3.png "Device Instance")
+
 **INFO**
 
 **To my knowledge, this works with Cisco:**
