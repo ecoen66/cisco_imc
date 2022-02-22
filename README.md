@@ -8,6 +8,7 @@
 # Purpose
 
 The purpose of this code is to create a [Home Assistant](https://github.com/home-assistant) integration to provide high-level, rack-unit data from the CIMC, and to allow an administrator to set the UCS server's desired admin power state.  This integration utilizes the [Cisco](https://www.cisco.com) [imcsdk](https://github.com/CiscoUcs/imcsdk) for Python.
+This code is loosely based on the [Home Assistant custom components integration blueprint](https://www.github.com/custom-components/integration_blueprint), and the [Home Assistant integration for Tesla buy alandtse](https://github.com/alandtse/tesla).
 
 ![Integration Screenshot](example-1.png "Integration")
 ![Integration Instance Screenshot](example-2.png "Integration Instance")
