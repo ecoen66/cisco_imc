@@ -161,6 +161,7 @@ async def validate_input(hass: core.HomeAssistant, data):
         data[CONF_IP_ADDRESS],
         data[CONF_USERNAME],
         data[CONF_PASSWORD],
+        secure=True,
         auto_refresh=True,
         force=True,
         timeout=60

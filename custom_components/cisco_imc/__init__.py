@@ -236,6 +236,7 @@ class CiscoImcDataService(DataUpdateCoordinator):
             self.imc,
             self.username,
             self.password,
+            secure=True,
             auto_refresh=True,
             force=True,
             timeout=60,
