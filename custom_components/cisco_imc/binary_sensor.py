@@ -57,5 +57,4 @@ class CiscoImcBinarySensor(CiscoImcDevice, BinarySensorEntity):
     @property
     def is_on(self):
         """Return the state of the binary sensor."""
-        self.available = True
         return self.coordinator.sensor_state(self.entity_description.key)
