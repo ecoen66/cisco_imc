@@ -70,6 +70,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
     @property
     def is_on(self):
         """Get whether the switch is in on state."""
+        self.available = True
         if self.coordinator.is_polling() is None:
             return None
         return self.coordinator.is_polling()
