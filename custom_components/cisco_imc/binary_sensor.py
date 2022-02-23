@@ -1,6 +1,7 @@
 """Binary sensor platform for CiscoImc."""
 import logging
 from homeassistant.components.binary_sensor import DEVICE_CLASSES, BinarySensorEntity
+from homeassistant.core import callback
 from homeassistant.const import CONF_IP_ADDRESS
 
 from .const import DOMAIN, NAME
@@ -58,3 +59,13 @@ class CiscoImcBinarySensor(CiscoImcDevice, BinarySensorEntity):
     def is_on(self):
         """Return the state of the binary sensor."""
         return self.coordinator.sensor_state(self.entity_description.key)
+        
+    @property
+    def available(self):
+        return True
+
+    @callback
+    def async_update_available(self):
+        super().async_update_available()
+        self._attr_extra_state_attributes["available"] = self._attr_available
+
