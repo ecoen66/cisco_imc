@@ -5,6 +5,7 @@ import logging
 from typing import Any
 
 from homeassistant.components.switch import SwitchEntity
+from homeassistant.core import callback
 from homeassistant.const import CONF_IP_ADDRESS
 
 from .const import DOMAIN, NAME
