@@ -78,3 +78,9 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
     def available(self):
         return True
 
+    @callback
+    def async_update_available(self):
+        super().async_update_available()
+        self._attr_extra_state_attributes["available"] = self._attr_available
+
+
