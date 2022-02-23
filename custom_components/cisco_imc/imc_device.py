@@ -67,8 +67,6 @@ class CiscoImcDevice(CoordinatorEntity):
     @property
     def extra_state_attributes(self):
         """Return the state attributes of the device."""
-        if self.upstream_entity.device_class == "switch":
-            self._attributes.available = True
         return self._attributes
 
     @property
