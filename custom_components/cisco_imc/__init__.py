@@ -229,6 +229,7 @@ class CiscoImcDataService(DataUpdateCoordinator):
         self.hass.custom_attributes[self.imc] = {}
         _LOGGER.debug("about to set polling_switch for %s", self.imc)
         self.hass.custom_attributes[self.imc]['polling_switch'] = True
+        self.config_entry.entry_data['devices']['polling_switch'].async_turn_on()
         self.hass.custom_attributes[self.imc]['reachable'] = False
         self.hass.custom_attributes[self.imc]['unreachable_counter'] = 0
         self.update_interval = timedelta(seconds=MIN_SCAN_INTERVAL)
