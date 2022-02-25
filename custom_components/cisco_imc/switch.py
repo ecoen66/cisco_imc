@@ -67,7 +67,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         """Send the off command."""
         _LOGGER.debug("Disable polling for: %s", self.name)
         self.coordinator.set_polling_state(False)
-            _LOGGER.debug(f"After disabling polling, is_polling = {self.coordinator.is_polling()}")
+        _LOGGER.debug(f"After disabling polling, is_polling = {self.coordinator.is_polling()}")
         self.async_write_ha_state()
 
     @property
