@@ -75,9 +75,13 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         """Get whether the switch is in on state."""
         return self.available
 
-#    @property
-#    def available(self):
-#        return True
+    @property
+    def available(self):
+        return True
+
+    @property
+    def assumed_state(self):
+        return True
 
     @callback
     def async_update_available(self):
