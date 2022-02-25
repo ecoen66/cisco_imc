@@ -7,7 +7,6 @@ from typing import Any
 from homeassistant.components.switch import SwitchEntity
 from homeassistant.core import callback
 from homeassistant.const import CONF_IP_ADDRESS
-
 from .const import DOMAIN, NAME
 from .imc_device import CiscoImcDevice
 from .models import CiscoImcSwitchEntityDescription
@@ -50,7 +49,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         self._attributes = {}
         
         super().__init__(self, hass, self.imc, entity_description, coordinator)
-#        self.async_turn_on()
+        self.async_turn_on()
 
 
     @property
