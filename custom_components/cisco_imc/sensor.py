@@ -63,8 +63,9 @@ class CiscoImcSensorEntity(CiscoImcDevice, SensorEntity):
         self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
         self.coordinator = coordinator
         self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
-        if self.hass.custom_attributes[self.imc]['usr_lbl']:
-            self._attr_name = f"{self.hass.custom_attributes[self.imc]['usr_lbl']} {self.entity_description.name}"        
+        if 'usr_lbl' in self.hass.custom_attributes[self.imc]:
+            if self.hass.custom_attributes[self.imc]['usr_lbl']:
+                self._attr_name = f"{self.hass.custom_attributes[self.imc]['usr_lbl']} {self.entity_description.name}"        
         self._attributes = {}
         super().__init__(self, hass, self.imc, description, coordinator)
         
