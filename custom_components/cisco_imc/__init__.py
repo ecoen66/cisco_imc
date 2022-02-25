@@ -263,7 +263,7 @@ class CiscoImcDataService(DataUpdateCoordinator):
             self.hass.custom_attributes[self.imc]['unreachable_counter'] += 1
 #            raise UpdateFailed("Unable to contact the IMC, skipping update") from ex
             _LOGGER.debug(f"{self.imc} Unable to contact the IMC, skipping update")
-            return false
+            return False
         except ImcLoginError as ex:
             _LOGGER.error("Could not login to the IMC %s", self.imc)
             raise ConfigEntryAuthFailed from ex
