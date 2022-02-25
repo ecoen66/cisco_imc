@@ -162,7 +162,5 @@ SWITCH_TYPE = CiscoImcSwitchEntityDescription(
     key="polling_switch",
     name="Polling Switch",
     icon="mdi:sync",
-    device_class=SwitchDeviceClass.SWITCH,
-    should_poll=False,
-    assumed_state=True
+    device_class=SwitchDeviceClass.SWITCH
 )
