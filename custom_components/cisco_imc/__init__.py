@@ -91,16 +91,16 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
             config_entry, options={CONF_SCAN_INTERVAL: scan_interval}
         )
         hass.data[DOMAIN].pop(imc)
-    try:
-        _LOGGER.debug(f"{imc} Setting up coordinator")
-        coordinator = CiscoImcDataService(hass, config_entry)
-        _LOGGER.debug(f"{imc} Asking coordinator to login")
-        await coordinator.async_login()
-        _LOGGER.debug("Logged in to imc %s in __init__.py", imc)
+#    try:
+    _LOGGER.debug(f"{imc} Setting up coordinator")
+    coordinator = CiscoImcDataService(hass, config_entry)
+    _LOGGER.debug(f"{imc} Asking coordinator to login")
+    await coordinator.async_login()
+    _LOGGER.debug("Logged in to imc %s in __init__.py", imc)
 
-    except URLError as ex:
+#    except URLError as ex:
 #        raise ConfigEntryAuthFailed(ex) from ex
-    except Exception as ex:
+#    except Exception as ex:
 #        raise ConfigEntryNotReady(ex) from ex
 
     async def _async_close_client(*_):
