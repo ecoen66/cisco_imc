@@ -44,12 +44,14 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
         self._attr_available = True
         self._is_on = True
+        self.hass.custom_attributes[self.imc]['polling_switch'] = True
         if self.hass.custom_attributes[self.imc]['usr_lbl']:
             self._attr_name = f"{self.hass.custom_attributes[self.imc]['usr_lbl']} {self.entity_description.name}"        
         self._attributes = {}
         
         super().__init__(self, hass, self.imc, entity_description, coordinator)
-        self.async_turn_on()
+#        self.async_turn_on()
+
 
     @property
     def unique_id(self):
@@ -62,14 +64,16 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         """Send the on command."""
         _LOGGER.debug("Enable polling for: %s", self.name)
         self._is_on = True
-        self.coordinator.set_polling_state(True)
+#        self.coordinator.set_polling_state(True)
+        self.hass.custom_attributes[self.imc]['polling_switch'] = True
         self.async_write_ha_state()
 
     async def async_turn_off(self, **kwargs):
         """Send the off command."""
         _LOGGER.debug("Disable polling for: %s", self.name)
         self._is_on = False
-        self.coordinator.set_polling_state(False)
+#        self.coordinator.set_polling_state(False)
+        self.hass.custom_attributes[self.imc]['polling_switch'] = False
         _LOGGER.debug(f"After disabling polling, is_polling = {self.coordinator.is_polling()}")
         self.async_write_ha_state()
 
