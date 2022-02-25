@@ -42,6 +42,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         self.imc = config_entry.data.get(CONF_IP_ADDRESS)[0]
         self.coordinator = coordinator
         self._attr_name = f"{NAME} {self.imc} {self.entity_description.name}"
+        self._attr_available = True
         if self.hass.custom_attributes[self.imc]['usr_lbl']:
             self._attr_name = f"{self.hass.custom_attributes[self.imc]['usr_lbl']} {self.entity_description.name}"        
         self._attributes = {}
@@ -66,6 +67,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         """Send the off command."""
         _LOGGER.debug("Disable polling for: %s", self.name)
         self.coordinator.set_polling_state(False)
+            _LOGGER.debug(f"After disabling polling, is_polling = {self.coordinator.is_polling()}")
         self.async_write_ha_state()
 
     @property
@@ -75,9 +77,9 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
             return None
         return self.coordinator.is_polling()
 
-    @property
-    def available(self):
-        return True
+#    @property
+#    def available(self):
+#        return True
 
     @callback
     def async_update_available(self):
