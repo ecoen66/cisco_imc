@@ -49,7 +49,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         self._attributes = {}
         
         super().__init__(self, hass, self.imc, entity_description, coordinator)
-        await self.async_turn_on()
+        self.async_turn_on()
 
     @property
     def unique_id(self):
