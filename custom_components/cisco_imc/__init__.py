@@ -98,10 +98,10 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
     await coordinator.async_login()
     _LOGGER.debug("Logged in to imc %s in __init__.py", imc)
 
-#    except URLError as ex:
-#        raise ConfigEntryAuthFailed(ex) from ex
-#    except Exception as ex:
-#        raise ConfigEntryNotReady(ex) from ex
+    except URLError as ex:
+        raise ConfigEntryAuthFailed(ex) from ex
+    except Exception as ex:
+        raise ConfigEntryNotReady(ex) from ex
 
     async def _async_close_client(*_):
         await coordinator.async_close()
@@ -261,9 +261,9 @@ class CiscoImcDataService(DataUpdateCoordinator):
         except URLError as ex:
             self.hass.custom_attributes[self.imc]['reachable'] = False
             self.hass.custom_attributes[self.imc]['unreachable_counter'] += 1
-#            raise UpdateFailed("Unable to contact the IMC, skipping update") from ex
-            _LOGGER.debug(f"{self.imc} Unable to contact the IMC, skipping update")
-            return False
+            raise UpdateFailed("Unable to contact the IMC, skipping update") from ex
+#            _LOGGER.debug(f"{self.imc} Unable to contact the IMC, skipping update")
+#            return False
         except ImcLoginError as ex:
             _LOGGER.error("Could not login to the IMC %s", self.imc)
             raise ConfigEntryAuthFailed from ex
@@ -271,7 +271,7 @@ class CiscoImcDataService(DataUpdateCoordinator):
             _LOGGER.error("Exception logging in to the IMC %s", self.imc)
             raise ConfigEntryNotReady from ex
         _LOGGER.debug(f"{self.imc} Login from CiscoImcDataService = {response}")
-        self.hass.custom_attributes[self.imc]['reachable'] = True
+        self.hass.custom_attributes[self.imc]['reachable'] = response
         _LOGGER.debug(f"{self.imc} Reachable set to {self.hass.custom_attributes[self.imc]['reachable']}")
         return response
         
