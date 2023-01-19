@@ -8,7 +8,7 @@ from homeassistant.core import callback
 from homeassistant.helpers.entity_registry import async_get_registry
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import slugify
-from imcsdk.imchandle import ImcHandle
+from imcsdk-ecoen66.imchandle import ImcHandle
 from urllib.error import URLError
 
 from .const import DOMAIN, NAME
