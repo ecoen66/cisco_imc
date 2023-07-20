@@ -9,6 +9,6 @@
   "zip_release": true,
   "hide_default_branch": true,
   "iot_class": "Local Polling",
-  "homeassistant": "0.109.0",
+  "homeassistant": "2023.7.2",
   "filename": "cisco_imc.zip"
 }

@@ -45,7 +45,7 @@ class ImcPollingSwitch(CiscoImcDevice, SwitchEntity):
         self._is_on = True
         self.hass.custom_attributes[self.imc]['polling_switch'] = True
         if self.hass.custom_attributes[self.imc]['usr_lbl']:
-            self._attr_name = f"{self.hass.custom_attributes[self.imc]['usr_lbl']} {self.entity_description.name}"        
+            self._attr_name = f"{self.hass.custom_attributes[self.imc]['usr_lbl']} {self.entity_description.name}"
         self._attributes = {}
         
         super().__init__(self, hass, self.imc, entity_description, coordinator)
