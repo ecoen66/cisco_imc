@@ -191,7 +191,7 @@ async def validate_input(hass: core.HomeAssistant, data):
         _LOGGER.error("Authentication error: %s %s", ex.description, ex)
         raise InvalidAuth() from ex
     except ImcException as ex:
-        _LOGGER.error("Unable to communicate with Cisco IMC API: %s", ex.description)
+        _LOGGER.error("Unable to communicate with Cisco IMC API: %s", ex)
         raise CannotConnect() from ex
     finally:
         await hass.async_add_executor_job(system_logout)

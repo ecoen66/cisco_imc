@@ -144,7 +144,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 
     _LOGGER.debug(f"{imc} devices = {entry_data['devices']}")
 
-    hass.config_entries.async_setup_platforms(config_entry, PLATFORMS)
+    await hass.config_entries.async_forward_entry_setups(config_entry, PLATFORMS)
     
 #    entity_registry = er.async_get(hass)
 #    attrs: Dict[str, Any] = {ATTR_RESTORED: True}
