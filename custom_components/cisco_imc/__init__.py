@@ -44,9 +44,11 @@ from .const import (
     DATA_LISTENER,
     RACK_UNIT_UPDATE_DELAY,
     RACK_UNIT_SENSORS,
+    STATIC_SENSOR,
     SWITCH,
     BINARY_SENSOR,
     SENSOR_TYPES,
+    STATIC_SENSOR_TYPE,
     SWITCH_TYPE,
     BINARY_SENSOR_TYPE,
     DEFAULT_SCAN_INTERVAL,
@@ -180,6 +182,7 @@ async def get_homeassistant_components(hass, config_entry) -> dict[
             if sensor_type.key == key:
                 services["sensor"][key] = sensor_type
     
+    services["sensor"][STATIC_SENSOR] = STATIC_SENSOR_TYPE
     services["switch"][SWITCH] = SWITCH_TYPE
     services["binary_sensor"][BINARY_SENSOR] = BINARY_SENSOR_TYPE
     return services
@@ -238,6 +241,7 @@ class CiscoImcDataService(DataUpdateCoordinator):
         _LOGGER.debug("about to set polling_switch for %s", self.imc)
         self.hass.custom_attributes[self.imc]['polling_switch'] = True
 #        self.hass.data[DOMAIN][config_entry.entry_id]['devices']['switch'][SWITCH]._is_on = True
+        self.hass.custom_attributes[self.imc]['ip_address'] = self.imc
         self.hass.custom_attributes[self.imc]['reachable'] = False
         self.hass.custom_attributes[self.imc]['unreachable_counter'] = 0
         self.update_interval = timedelta(seconds=MIN_SCAN_INTERVAL)
@@ -307,6 +311,8 @@ class CiscoImcDataService(DataUpdateCoordinator):
             self.hass.custom_attributes[self.imc]['unreachable_counter'] += 1
             raise UpdateFailed("Unable to contact the IMC, skipping update") from ex
         self.hass.custom_attributes[self.imc].clear()
+        self.hass.custom_attributes[self.imc]['ip_address'] = self.imc
+
         self.hass.custom_attributes[self.imc]['reachable'] = True
         self.hass.custom_attributes[self.imc]['polling_switch'] = True
         self.hass.custom_attributes[self.imc]['unreachable_counter'] = 0

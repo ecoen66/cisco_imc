@@ -16,7 +16,7 @@ from .models import (
 # Base component constants
 NAME = "Cisco IMC"
 DOMAIN = "cisco_imc"
-VERSION = "v1.0.0"
+VERSION = "v2.2.2"
 
 ISSUE_URL = "https://github.com/ecoen66/cisco_imc/issues"
 
@@ -41,6 +41,7 @@ ICONS = {
     "oper_power": "mdi:power",
     "reachable": "mdi:lan-connect",
     "polling_switch": "mdi:sync",
+    "ip_address": "mdi:ip-outline",
 }
 DEFAULT_SCAN_INTERVAL = 660
 MIN_SCAN_INTERVAL = 60
@@ -67,6 +68,7 @@ RACK_UNIT_SENSORS = [
     "oper_power"
 ]
 
+STATTIC_SENSOR = "ip_address"
 SWITCH = "polling_switch"
 BINARY_SENSOR = "reachable"
 
@@ -150,6 +152,12 @@ SENSOR_TYPES = [
         icon="mdi:power",
     ),
 ]
+
+STATIC_SENSOR_TYPE = CiscoImcSensorEntityDescription(
+    key="ip_address",
+    name="IP Address",
+    icon="mdi:ip-outline",
+)
 
 BINARY_SENSOR_TYPE = CiscoImcBinarySensorEntityDescription(
     key="reachable",
