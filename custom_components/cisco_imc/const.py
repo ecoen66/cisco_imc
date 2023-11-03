@@ -68,7 +68,7 @@ RACK_UNIT_SENSORS = [
     "oper_power"
 ]
 
-STATTIC_SENSOR = "ip_address"
+STATIC_SENSOR = "ip_address"
 SWITCH = "polling_switch"
 BINARY_SENSOR = "reachable"
 
