@@ -1,5 +1,5 @@
 pytest-homeassistant-custom-component==0.4.0
-imcsdk-ecoen66==0.9.12
+imcsdk==0.9.12
 homeassistant
 pytest
 pytest-asyncio

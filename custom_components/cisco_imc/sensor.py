@@ -6,7 +6,7 @@ import logging
 
 from typing import Any
 
-from imcsdk_ecoen66.imchandle import ImcHandle
+from imcsdk.imchandle import ImcHandle
 
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.config_entries import ConfigEntry

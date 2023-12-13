@@ -7,7 +7,7 @@ from homeassistant.const import ATTR_BATTERY_CHARGING, ATTR_BATTERY_LEVEL
 from homeassistant.core import callback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import slugify
-from imcsdk_ecoen66.imchandle import ImcHandle
+from imcsdk.imchandle import ImcHandle
 from urllib.error import URLError
 
 from .const import DOMAIN, NAME

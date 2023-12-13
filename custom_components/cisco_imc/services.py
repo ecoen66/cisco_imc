@@ -10,7 +10,7 @@ from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers import device_registry as dr
 
 from datetime import datetime
-from imcsdk_ecoen66.imchandle import ImcHandle
+from imcsdk.imchandle import ImcHandle
 
 # pylint: disable=relative-beyond-top-level
 from .const import (
