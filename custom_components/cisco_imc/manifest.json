@@ -11,10 +11,10 @@
     "@ecoen66"
   ],
   "requirements": [
-    "imcsdk_ecoen66==0.9.22",
+    "imcsdk_ecoen66==0.9.23",
     "iso8601==0.1.12",
     "integrationhelper==0.2.2"
   ],
-  "version": "v2.3.0",
+  "version": "v2.3.1",
   "iot_class": "local_polling"
 }
