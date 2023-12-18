@@ -5,8 +5,8 @@ from typing import Any
 from collections import OrderedDict
 
 import voluptuous as vol
-from imcsdk.imchandle import ImcHandle
-from imcsdk.imcexception import ImcLoginError, ImcException
+from imcsdk_ecoen66.imchandle import ImcHandle
+from imcsdk_ecoen66.imcexception import ImcLoginError, ImcException
 
 from homeassistant import config_entries, core, exceptions
 from homeassistant.const import (
