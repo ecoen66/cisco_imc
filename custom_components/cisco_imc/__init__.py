@@ -273,6 +273,7 @@ class CiscoImcDataService(DataUpdateCoordinator):
             raise ConfigEntryAuthFailed from ex
         except ImcException as ex:
             _LOGGER.error("Exception logging in to the IMC %s", self.imc)
+            _LOGGER.debug(f"Exception was: {ex}")
             raise ConfigEntryNotReady from ex
         _LOGGER.debug(f"{self.imc} Login from CiscoImcDataService = {response}")
         self.hass.custom_attributes[self.imc]['reachable'] = response
