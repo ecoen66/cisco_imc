@@ -11,7 +11,7 @@
     "@ecoen66"
   ],
   "requirements": [
-    "imcsdk_ecoen66==0.9.27",
+    "imcsdk_ecoen66==0.9.28",
     "iso8601==0.1.12",
     "integrationhelper==0.2.2"
   ],
