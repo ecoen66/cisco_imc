@@ -6,7 +6,7 @@
         "switch"
     ],
   "render_readme": true,
-  "zip_release": true,
+  "zip_release": false,
   "hide_default_branch": true,
   "iot_class": "Local Polling",
   "homeassistant": "2023.7.2",
