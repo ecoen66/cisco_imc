@@ -13,6 +13,7 @@
   "requirements": [
     "imcsdk_ecoen66==0.9.29",
     "iso8601==0.1.12",
+    "imcsdk_ecoen66==0.9.32",
     "iso8601==0.2.10",
     "integrationhelper==0.2.2"
   ],
