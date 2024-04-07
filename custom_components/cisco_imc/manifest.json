@@ -12,10 +12,9 @@
   ],
   "requirements": [
     "imcsdk_ecoen66==0.9.32",
-    "iso8601==0.2.10",
+    "iso8601==2.1.0",
     "integrationhelper==0.2.2"
   ],
-  "version": "v2.3.2",
-  "version": "v2.3.4",
+  "version": "v2.3.5",
   "iot_class": "local_polling"
 }
